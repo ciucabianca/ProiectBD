@@ -9,17 +9,16 @@ export const RegisterPage = (props) => {
   const [password, setPassword] = useState("");
   const [nume, setLastName] = useState("");
   const [prenume, setFirstName] = useState("");
+
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log({ email, password, nume, prenume });
       const res = await axios.post("/api/users/register", {
         email,
         password,
         nume,
         prenume,
       });
-      console.log(res);
       if (res.data) {
         toast.success("Created new user succesfully!");
         // window.location.href = "/login";

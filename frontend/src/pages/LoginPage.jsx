@@ -1,11 +1,16 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Layout } from "../components/Layout";
 import { Redirect, Link } from "react-router-dom";
 import axios from "axios";
+//import background from "../img/backgroundLogin.jpg";
+import { toast } from "react-toastify";
 
 export const LoginPage = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const history = useHistory();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -15,7 +20,10 @@ export const LoginPage = (props) => {
       console.log(res);
       if (res.data) {
         localStorage.setItem("authToken", res.data.token);
-        window.location.href = "/";
+        toast.success("Login Succesful!");
+        setTimeout(() => {
+          history.push("/");
+        }, 2000);
       }
     } catch (error) {
       console.log(error);
@@ -75,7 +83,6 @@ export const LoginPage = (props) => {
               </form>
             </div>
           </div>
-
           <Link to="/register" className="mt-4 text-center">
             Create account
           </Link>

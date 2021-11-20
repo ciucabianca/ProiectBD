@@ -32,7 +32,6 @@ export const login = async (credentials) => {
       credentials.password,
       existingUser[0].Parola
     );
-    console.log("same", same);
     if (same) {
       return jwtSignUser(existingUser[0]);
     } else {
