@@ -23,6 +23,9 @@ usersRouter.post(
       return res.status(200).json({ token });
     } catch (error) {
       console.log(error);
+      if (error === "not found") {
+        return res.status(404).json({ msg: "user not found" });
+      }
       if (error === "password mismatch") {
         return res
           .status(403)

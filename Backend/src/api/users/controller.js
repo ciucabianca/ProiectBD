@@ -4,11 +4,11 @@ import jwt from "jsonwebtoken";
 import { query } from "../../app.js";
 
 const queryGetUserByEmail = (userEmail) => {
-  return `SELECT * FROM Utilizatori Where Email="${userEmail}"`;
+  return `SELECT * FROM \`dbo.utilizatori\` Where Email="${userEmail}"`;
 };
 
 const queryCreateUser = (user) => {
-  return `INSERT INTO \`utilizatori\`(\`UtilizatorId\`, \`Nume\`, \`Prenume\`, \`Email\`, \`Parola\`) VALUES ("${user.id}","${user.nume}","${user.prenume}","${user.email}","${user.password}")`;
+  return `INSERT INTO \`dbo.utilizatori\`(\`UtilizatorId\`, \`Nume\`, \`Prenume\`, \`Email\`, \`Parola\`) VALUES ("${user.id}","${user.nume}","${user.prenume}","${user.email}","${user.password}")`;
 };
 
 export const create = async (user) => {
