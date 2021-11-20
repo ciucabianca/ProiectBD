@@ -1,10 +1,10 @@
 import Router from "express";
-import { authRouter } from "./auth/router.js";
+import { usersRouter } from "./users/router.js";
 
 export const configApi = () => {
   const mainRouter = Router();
 
-  mainRouter.use("/auth", authRouter);
+  mainRouter.use("/users", usersRouter);
 
   return mainRouter;
 };
