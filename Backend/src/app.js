@@ -4,6 +4,7 @@ import compression from "compression";
 import morgan from "morgan";
 import { configApi } from "./api.js";
 import mysql from "mysql";
+import util from "util";
 
 export const db = mysql.createConnection({
   host: "localhost",
@@ -11,6 +12,8 @@ export const db = mysql.createConnection({
   password: "",
   database: "CarsOnDemand",
 });
+
+export const query = util.promisify(db.query).bind(db);
 
 export const configApp = () => {
   db.connect((error) => {
