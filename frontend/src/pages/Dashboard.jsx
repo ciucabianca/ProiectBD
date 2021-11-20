@@ -8,6 +8,16 @@ export const Dashboard = (props) => {
       <div className="d-flex row">
         <Link to="/login">Login</Link>
         <Link to="/register">Register</Link>
+        <Link
+          to="/"
+          onClick={() => {
+            console.log("logged out");
+            localStorage.removeItem("authToken");
+            window.location.href = "/login";
+          }}
+        >
+          Log Out
+        </Link>
       </div>
     </Layout>
   );
