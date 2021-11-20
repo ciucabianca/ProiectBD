@@ -1,5 +1,6 @@
 import { v4 as uuid } from "uuid";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { query } from "../../app.js";
 
 const queryGetUserByEmail = (userEmail) => {
@@ -21,4 +22,34 @@ export const create = async (user) => {
   user.password = hash;
   await query(queryCreateUser(user));
   return { msg: "User created" };
+};
+
+export const login = async (credentials) => {
+  const existingUser = await query(queryGetUserByEmail(credentials.email));
+
+  if (existingUser.length) {
+    const same = await bcrypt.compare(
+      credentials.password,
+      existingUser[0].Parola
+    );
+    console.log("same", same);
+    if (same) {
+      return jwtSignUser(existingUser[0]);
+    } else {
+      throw "password mismatch";
+    }
+  } else {
+    throw "not found";
+  }
+};
+
+const jwtSignUser = (user) => {
+  return jwt.sign(
+    {
+      utilizatorId: user.UtilizatorId,
+      email: user.Email,
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: "24h" }
+  );
 };

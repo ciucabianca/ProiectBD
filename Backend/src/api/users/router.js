@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { create } from "./controller.js";
+import { create, login } from "./controller.js";
 import validateParams from "../../middleware/validateParams.js";
 import { check } from "express-validator";
 
@@ -19,10 +19,16 @@ usersRouter.post(
   validateParams,
   async (req, res) => {
     try {
-      res.status(200).json(req.body);
+      const token = await login(req.body);
+      return res.status(200).json({ token });
     } catch (error) {
       console.log(error);
-      res.status(500).send("Internal Server Error");
+      if (error === "password mismatch") {
+        return res
+          .status(403)
+          .json({ msg: "Invalid email and password combination" });
+      }
+      return res.status(500).send("Internal Server Error");
     }
   }
 );
