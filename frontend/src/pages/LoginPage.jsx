@@ -26,6 +26,7 @@ export const LoginPage = (props) => {
         }, 2000);
       }
     } catch (error) {
+      toast.error("Wrong credentials!");
       console.log(error);
     }
   };
@@ -40,7 +41,12 @@ export const LoginPage = (props) => {
       <div className="d-flex justify-content-center">
         <div className="d-flex row">
           <h1 className="text-center">Login Page</h1>
-          <div className="card shadow p-3" style={{ borderRadius: 10 }}>
+          <div
+            className="card shadow p-3"
+            style={{
+              borderRadius: 10,
+              opacity: 0.8,
+            }}>
             <div className="card-body">
               <form>
                 <div className="form-group">
@@ -75,15 +81,14 @@ export const LoginPage = (props) => {
                   <button
                     type="submit"
                     className="btn btn-outline-primary"
-                    onClick={onSubmit}
-                  >
+                    onClick={onSubmit}>
                     Login
                   </button>
                 </div>
               </form>
             </div>
           </div>
-          <Link to="/register" className="mt-4 text-center">
+          <Link to="/register" className="btn btn-primary mt-4 text-center">
             Create account
           </Link>
         </div>

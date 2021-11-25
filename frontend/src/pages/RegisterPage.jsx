@@ -37,7 +37,9 @@ export const RegisterPage = (props) => {
       <div className="d-flex justify-content-center">
         <div className="d-flex row">
           <h1 className="text-center">Register Page</h1>
-          <div className="card shadow p-3" style={{ borderRadius: 10 }}>
+          <div
+            className="card shadow p-3"
+            style={{ borderRadius: 10, opacity: 0.8 }}>
             <div className="card-body">
               <form>
                 <div className="form-group">
@@ -99,15 +101,14 @@ export const RegisterPage = (props) => {
                   <button
                     type="submit"
                     className="btn btn-outline-primary"
-                    onClick={onSubmit}
-                  >
+                    onClick={onSubmit}>
                     Register Now
                   </button>
                 </div>
               </form>
             </div>
           </div>
-          <Link to="/login" className="mt-4 text-center">
+          <Link to="/login" className="btn btn-primary mt-4 text-center">
             Log In
           </Link>
         </div>
