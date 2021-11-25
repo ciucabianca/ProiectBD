@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Layout } from "../components/Layout";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect, Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -9,6 +9,8 @@ export const RegisterPage = (props) => {
   const [password, setPassword] = useState("");
   const [nume, setLastName] = useState("");
   const [prenume, setFirstName] = useState("");
+
+  const history = useHistory();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +23,9 @@ export const RegisterPage = (props) => {
       });
       if (res.data) {
         toast.success("Created new user succesfully!");
-        // window.location.href = "/login";
+        setTimeout(() => {
+          history.push("/login");
+        }, 2000);
       }
     } catch (error) {
       console.log(error);
