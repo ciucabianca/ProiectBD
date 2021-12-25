@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import { Layout } from "../components/Layout";
 import { Redirect, Link } from "react-router-dom";
 import axios from "axios";
-//import background from "../img/backgroundLogin.jpg";
 import { toast } from "react-toastify";
 
 export const LoginPage = (props) => {
