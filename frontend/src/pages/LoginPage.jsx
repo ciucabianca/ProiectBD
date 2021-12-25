@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Layout } from "../components/Layout";
 import { Redirect, Link } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { loginAction } from "../api/users";
 
 export const LoginPage = (props) => {
   const [email, setEmail] = useState("");
@@ -13,20 +13,14 @@ export const LoginPage = (props) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    try {
-      console.log({ email, password });
-      const res = await axios.post("/api/users/login", { email, password });
-      console.log(res);
-      if (res.data) {
-        localStorage.setItem("authToken", res.data.token);
-        toast.success("Login Succesful!");
-        setTimeout(() => {
-          history.push("/");
-        }, 2000);
-      }
-    } catch (error) {
+    const token = await loginAction({ email, password });
+    if (token) {
+      toast.success("Login Succesful!");
+      setTimeout(() => {
+        history.push("/");
+      }, 2000);
+    } else {
       toast.error("Wrong credentials!");
-      console.log(error);
     }
   };
 

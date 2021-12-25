@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Layout } from "../components/Layout";
 import { Redirect, Link, useHistory } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { registerAction } from "../api/users";
 
 export const RegisterPage = (props) => {
   const [email, setEmail] = useState("");
@@ -14,21 +14,13 @@ export const RegisterPage = (props) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post("/api/users/register", {
-        email,
-        password,
-        nume,
-        prenume,
-      });
-      if (res.data) {
-        toast.success("Created new user succesfully!");
-        setTimeout(() => {
-          history.push("/login");
-        }, 2000);
-      }
-    } catch (error) {
-      console.log(error);
+    if (registerAction({ email, password, nume, prenume })) {
+      toast.success("Created new user succesfully!");
+      setTimeout(() => {
+        history.push("/login");
+      }, 2000);
+    } else {
+      toast.error("ERROR!");
     }
   };
 

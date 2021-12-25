@@ -8,7 +8,7 @@ const queryGetUserByEmail = (userEmail) => {
 };
 
 const queryCreateUser = (user) => {
-  return `INSERT INTO \`dbo.utilizatori\`(\`UtilizatorId\`, \`Nume\`, \`Prenume\`, \`Email\`, \`Parola\`) VALUES ("${user.id}","${user.nume}","${user.prenume}","${user.email}","${user.password}")`;
+  return `INSERT INTO \`dbo.utilizatori\`(\`UtilizatorId\`, \`Nume\`, \`Prenume\`, \`Email\`, \`Parola\`, \`Rol\`) VALUES ("${user.id}","${user.nume}","${user.prenume}","${user.email}","${user.password}", "${user.role}")`;
 };
 
 export const create = async (user) => {
@@ -18,6 +18,7 @@ export const create = async (user) => {
   }
 
   user.id = uuid();
+  user.role = "user";
   const hash = await bcrypt.hash(user.password, 10);
   user.password = hash;
   await query(queryCreateUser(user));
@@ -45,8 +46,9 @@ export const login = async (credentials) => {
 const jwtSignUser = (user) => {
   return jwt.sign(
     {
-      utilizatorId: user.UtilizatorId,
+      utilizatorId: user.UtilizatorID,
       email: user.Email,
+      role: user.Rol,
     },
     process.env.JWT_SECRET,
     { expiresIn: "24h" }

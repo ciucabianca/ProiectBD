@@ -2,8 +2,14 @@ import { Router } from "express";
 import { create, login } from "./controller.js";
 import validateParams from "../../middleware/validateParams.js";
 import { check } from "express-validator";
+import { validateAuth } from "../../helpers/validateAuth.js";
 
 export const usersRouter = Router();
+
+usersRouter.get("/me", validateAuth(["user"]), async (req, res) => {
+  console.log(req.user);
+  return res.status(200).json(req.user);
+});
 
 usersRouter.post(
   "/login",
