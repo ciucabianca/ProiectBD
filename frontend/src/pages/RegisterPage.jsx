@@ -7,14 +7,14 @@ import { registerAction } from "../api/users";
 export const RegisterPage = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [nume, setLastName] = useState("");
-  const [prenume, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
 
   const history = useHistory();
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (registerAction({ email, password, nume, prenume })) {
+    if (registerAction({ email, password, lastName, firstName })) {
       toast.success("Created new user succesfully!");
       setTimeout(() => {
         history.push("/login");

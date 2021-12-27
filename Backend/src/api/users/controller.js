@@ -4,11 +4,11 @@ import jwt from "jsonwebtoken";
 import { query } from "../../app.js";
 
 const queryGetUserByEmail = (userEmail) => {
-  return `SELECT * FROM \`dbo.utilizatori\` Where Email="${userEmail}"`;
+  return `SELECT * FROM \`users\` Where Email="${userEmail}"`;
 };
 
 const queryCreateUser = (user) => {
-  return `INSERT INTO \`dbo.utilizatori\`(\`UtilizatorId\`, \`Nume\`, \`Prenume\`, \`Email\`, \`Parola\`, \`Rol\`) VALUES ("${user.id}","${user.nume}","${user.prenume}","${user.email}","${user.password}", "${user.role}")`;
+  return `INSERT INTO \`users\`(\`UserId\`, \`LastName\`, \`FirstName\`, \`Email\`, \`Password\`, \`Role\`) VALUES ("${user.id}","${user.lastName}","${user.firstName}","${user.email}","${user.password}", "${user.role}")`;
 };
 
 export const create = async (user) => {
@@ -31,7 +31,7 @@ export const login = async (credentials) => {
   if (existingUser.length) {
     const same = await bcrypt.compare(
       credentials.password,
-      existingUser[0].Parola
+      existingUser[0].Password
     );
     if (same) {
       return jwtSignUser(existingUser[0]);
@@ -46,9 +46,9 @@ export const login = async (credentials) => {
 const jwtSignUser = (user) => {
   return jwt.sign(
     {
-      utilizatorId: user.UtilizatorID,
+      userId: user.UserId,
       email: user.Email,
-      role: user.Rol,
+      role: user.Role,
     },
     process.env.JWT_SECRET,
     { expiresIn: "24h" }

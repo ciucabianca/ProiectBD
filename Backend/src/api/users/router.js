@@ -52,8 +52,8 @@ usersRouter.post(
       min: 5,
       max: 30,
     }),
-    check("nume", "Empty name field").not().isEmpty(),
-    check("prenume", "Empty name field").not().isEmpty(),
+    check("lastName", "Empty name field").not().isEmpty(),
+    check("firstName", "Empty name field").not().isEmpty(),
   ],
   validateParams,
   async (req, res) => {

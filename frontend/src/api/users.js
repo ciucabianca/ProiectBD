@@ -15,13 +15,18 @@ export const loginAction = async (credentials) => {
   return undefined;
 };
 
-export const registerAction = async ({ email, password, nume, prenume }) => {
+export const registerAction = async ({
+  email,
+  password,
+  lastName,
+  firstName,
+}) => {
   try {
     const res = await axios.post("/api/users/register", {
       email,
       password,
-      nume,
-      prenume,
+      lastName,
+      firstName,
     });
     if (res.data) {
       return true;
