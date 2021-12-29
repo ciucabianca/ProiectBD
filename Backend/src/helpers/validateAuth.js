@@ -18,6 +18,8 @@ export const validateAuth = (roles) => {
           }
         }
       });
+    } else {
+      return res.status(401).json({ error: "no auth token" });
     }
   };
 };

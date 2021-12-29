@@ -16,7 +16,6 @@ export const create = async (user) => {
   if (duplicates.length) {
     throw "duplicated";
   }
-
   user.id = uuid();
   user.role = "user";
   const hash = await bcrypt.hash(user.password, 10);
