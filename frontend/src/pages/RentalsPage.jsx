@@ -22,7 +22,7 @@ export const RentalsPage = () => {
 
   return (
     <Layout>
-      <h1>Rentals Page</h1>
+      <h1 className="text-center pb-4">My Rentals</h1>
       {isLoading ? (
         <LoadingOutlined className="h3 m-3" />
       ) : (
