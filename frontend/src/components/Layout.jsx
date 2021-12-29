@@ -4,7 +4,7 @@ export const Layout = (props) => {
   return (
     <LayoutFull>
       <div
-        className="container col-sm-8 col-md-6 col-lg-4 p-5"
+        className="container col-sm-10 col-md-8 col-lg-7 p-5"
         style={{
           marginTop: 90,
           marginBottom: 30,

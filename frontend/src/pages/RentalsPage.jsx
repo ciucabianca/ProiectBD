@@ -1,21 +1,35 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { RentalCard } from "../components/RentalCard";
+import { getRentalsByUserId } from "../api/rentals";
 import { getUser } from "../api/users";
 import { Layout } from "../components/Layout";
-import axios from "axios";
+import { LoadingOutlined } from "@ant-design/icons/lib/icons";
 
 export const RentalsPage = () => {
+  const [rentals, setRentals] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    console.log("in use effect", axios.defaults.headers.common);
-    getUserAsync();
+    getRentals();
   }, []);
 
-  const getUserAsync = async () => {
+  const getRentals = async () => {
+    setIsLoading(true);
     const user = await getUser();
-    console.log(user);
+    const rentals = await getRentalsByUserId(user.userId);
+    setRentals(rentals);
+    setIsLoading(false);
   };
+
   return (
     <Layout>
       <h1>Rentals Page</h1>
+      {isLoading ? (
+        <LoadingOutlined className="h3 m-3" />
+      ) : (
+        rentals.map((rental) => {
+          return <RentalCard rental={rental} />;
+        })
+      )}
     </Layout>
   );
 };
