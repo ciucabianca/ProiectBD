@@ -14,7 +14,6 @@ export const ImageCarousel = ({ images }) => {
         <Carousel.Item
           key={image}
           style={{
-            transition: "transfor 0.1s ease",
             WebkitBackfaceVisibility: "visible",
             backfaceVisibility: "visible",
           }}>
@@ -36,10 +35,7 @@ export const ImageCarousel = ({ images }) => {
       interval={null}
       nextLabel={""}
       prevLabel={""}
-      indicators={false}
-      style={{
-        transition: "transform 0.1s ease",
-      }}>
+      indicators={false}>
       {renderCarouselItems()}
     </Carousel>
   );
