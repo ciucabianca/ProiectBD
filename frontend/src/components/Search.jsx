@@ -1,4 +1,25 @@
+import { useEffect, useState } from "react";
+import { getLocations } from "../api/locations";
+
 export const Search = ({ onLocationChange, onFind }) => {
+  const [locations, setLocations] = useState([]);
+
+  useEffect(() => {
+    getAsyncLocations();
+  }, []);
+
+  const getAsyncLocations = async () => {
+    setLocations(await getLocations());
+  };
+
+  const renderLocationOptions = () => {
+    return locations.map((location) => {
+      return (
+        <option value={location.LocationId}>{location.LocationName}</option>
+      );
+    });
+  };
+
   return (
     <div className="d-flex flex-row justify-content-center align-items-center">
       <select
@@ -11,13 +32,12 @@ export const Search = ({ onLocationChange, onFind }) => {
           Alege locatia
         </option>
         <option value="">Toate locatiile</option>
-        <option value="value">Bucuresti</option>
-        <option value="value2">Craiova</option>
+        {renderLocationOptions()}
       </select>
 
       <div>
         <button
-          className="btn btn-outline-success ml-1"
+          className="btn btn-success ml-1"
           style={{ height: 48, width: 65 }}
           onClick={onFind}>
           Find
