@@ -4,6 +4,7 @@ import { CarCard } from "../components/CarCard";
 import { Layout } from "../components/Layout";
 import { useState } from "react";
 import { LoadingOutlined } from "@ant-design/icons/lib/icons";
+import { Search } from "../components/Search";
 
 export const CatalogPage = () => {
   const [isLoadingCars, setIsLoadingCars] = useState(false);
@@ -32,6 +33,11 @@ export const CatalogPage = () => {
   return (
     <Layout>
       <h1>Catalog Page</h1>
+      <Search
+        onLocationChange={(d) => {
+          console.log(d);
+        }}
+      />
       {renderCars()}
     </Layout>
   );

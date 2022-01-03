@@ -23,7 +23,7 @@ export const CarCard = ({ carDetails }) => {
     return (
       <>
         <h4>{`${carDetails.PricePerDay} RON / Zi`}</h4>
-        <p>{`In limita a 300km / Zi`}</p>
+        <p>{`In limita a 300 km / Zi`}</p>
       </>
     );
   };
