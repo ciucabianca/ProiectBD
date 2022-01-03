@@ -22,7 +22,7 @@ export const CarCard = ({ carDetails }) => {
   const renderOffer = () => {
     return (
       <>
-        <h4>{`${carDetails.pricePerDay} RON / Zi`}</h4>
+        <h4>{`${carDetails.PricePerDay} RON / Zi`}</h4>
         <p>{`In limita a 300km / Zi`}</p>
       </>
     );
@@ -32,12 +32,12 @@ export const CarCard = ({ carDetails }) => {
     <div
       className="card shadow p-3 my-3 mx-1"
       style={{ borderRadius: 10, maxWidth: "50em" }}>
-      <ImageCarousel images={carDetails.images} />
+      <ImageCarousel images={carDetails.Images} />
       <div style={{ flex: 1, marginTop: 20 }}>
-        <h2>{`${carDetails.manufacturer} ${carDetails.type}`}</h2>
-        <h5 style={{ marginTop: 15 }}>{`${carDetails.fabricationYear} - ${
-          carDetails.automated ? "Automatic" : "Manual"
-        } - ${carDetails.color}`}</h5>
+        <h2>{`${carDetails.Manufacturer} ${carDetails.Type}`}</h2>
+        <h5 style={{ marginTop: 15 }}>{`${carDetails.FabricationYear} - ${
+          carDetails.Automated ? "Automatic" : "Manual"
+        } - ${carDetails.Color}`}</h5>
       </div>
       <div
         style={{
