@@ -1,40 +1,9 @@
-import { useEffect, useState } from "react";
-import { getLocations } from "../api/locations";
+import { LocationPicker } from "./LocationPicker";
 
 export const Search = ({ onLocationChange, onFind }) => {
-  const [locations, setLocations] = useState([]);
-
-  useEffect(() => {
-    getAsyncLocations();
-  }, []);
-
-  const getAsyncLocations = async () => {
-    setLocations(await getLocations());
-  };
-
-  const renderLocationOptions = () => {
-    return locations.map((location) => {
-      return (
-        <option value={location.LocationId}>{location.LocationName}</option>
-      );
-    });
-  };
-
   return (
     <div className="d-flex flex-row justify-content-center align-items-center">
-      <select
-        className="form-control m-2"
-        onChange={(e) => {
-          onLocationChange(e.target.value);
-        }}
-        style={{ height: 48, minWidth: 120 }}>
-        <option value="" disabled selected>
-          Alege locatia
-        </option>
-        <option value="">Toate locatiile</option>
-        {renderLocationOptions()}
-      </select>
-
+      <LocationPicker onLocationChange={onLocationChange} />
       <div>
         <button
           className="btn btn-success ml-1"
