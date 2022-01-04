@@ -34,8 +34,12 @@ export const CatalogPage = () => {
     <Layout>
       <h1>Catalog Page</h1>
       <Search
+        onChangeDates={(startDate, endDate) => {
+          console.log("start", startDate);
+          console.log("end", endDate);
+        }}
         onLocationChange={(d) => {
-          console.log(d);
+          console.log("option", d);
         }}
       />
       {renderCars()}

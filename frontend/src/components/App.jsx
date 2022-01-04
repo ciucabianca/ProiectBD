@@ -1,6 +1,9 @@
 import { Routing } from "../routing/Routing";
 import { ToastContainer } from "react-toastify";
 
+import "react-dates/initialize";
+import "react-dates/lib/css/_datepicker.css";
+
 function App() {
   return (
     <div className="webpage">

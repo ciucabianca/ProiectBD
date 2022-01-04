@@ -20,7 +20,7 @@ export const ImageCarousel = ({ images }) => {
           <img
             className="d-block img-fluid"
             src={image}
-            alt="Image slide"
+            alt="Slide"
             style={{ borderRadius: 10 }}
           />
         </Carousel.Item>
