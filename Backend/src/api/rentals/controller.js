@@ -9,6 +9,12 @@ const queryGetRentals = (filter) => {
     usedWhere = true;
     where += ` UserId='${filter.userId}'`;
   }
+  if (filter.startDate && filter.endDate) {
+    const startDate = new Date(filter.startDate * 1000).toISOString();
+    const endDate = new Date(filter.endDate * 1000).toISOString();
+    usedWhere = true;
+    where += ` (NOT (rentals.StartDate > '${endDate}' OR rentals.EndDate < '${startDate}'))`;
+  }
 
   if (usedWhere) {
     query += where;
@@ -18,6 +24,15 @@ const queryGetRentals = (filter) => {
   return query;
 };
 
-export const getRentalsByUserId = async (userId) => {
-  return await query(queryGetRentals({ userId }));
+export const findRentals = async (filter) => {
+  const res = await query(queryGetRentals(filter));
+  const formated = res.map((rowDataPacket) => {
+    return {
+      ...rowDataPacket,
+      StartDate: rowDataPacket.StartDate / 1000,
+      EndDate: rowDataPacket.EndDate / 1000,
+    };
+  });
+
+  return formated;
 };

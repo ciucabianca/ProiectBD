@@ -1,4 +1,5 @@
 import { query } from "../../app.js";
+import { findRentals } from "../rentals/controller.js";
 
 const queryGetCars = (filter) => {
   let query = `SELECT * FROM \`cars\` JOIN \`car_models\` ON cars.ModelId=car_models.ModelId`;
@@ -17,12 +18,20 @@ const queryGetCars = (filter) => {
   return query;
 };
 
-export const find = async (options) => {
+export const findCars = async (options) => {
   const filter = JSON.parse(options.filter);
-  console.log("filter", filter);
 
   let rentedCarIds = [];
   if (filter.startDate && filter.endDate) {
+    const resRentals = await findRentals({
+      startDate: filter.startDate,
+      endDate: filter.endDate,
+    });
+
+    const carRentedIds = resRentals.map((rental) => rental.CarId);
+    rentedCarIds = carRentedIds.filter((value, index, self) => {
+      return self.indexOf(value) === index;
+    });
   }
 
   const res = await query(queryGetCars(filter));
@@ -35,8 +44,6 @@ export const find = async (options) => {
         Images: rowDataPacket.Images.split(" "),
       };
     });
-
-  console.log("formated", formated);
 
   return formated;
 };
