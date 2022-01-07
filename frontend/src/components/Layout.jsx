@@ -6,8 +6,8 @@ export const Layout = (props) => {
       <div
         className="container col-sm-10 col-md-8 col-lg-7 p-5"
         style={{
-          marginTop: 90,
-          marginBottom: 30,
+          marginTop: 120,
+          marginBottom: 300,
           borderRadius: 15,
           backgroundColor: "rgba(255, 255, 255, 0.7)",
         }}>

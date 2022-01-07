@@ -1,10 +1,12 @@
 import { ImageCarousel } from "./ImageCarousel";
 import { isAuth } from "../helpers/isAuth";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 export const CarCard = ({ carDetails }) => {
+  const history = useHistory();
+
   const handleReservation = () => {
-    console.log("rezerva");
+    history.push(`/rent/${carDetails.CarId}`);
   };
 
   const renderActionButton = () => {

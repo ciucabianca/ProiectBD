@@ -4,6 +4,7 @@ import { Dashboard } from "../pages/Dashboard";
 import { LoginPage } from "../pages/LoginPage";
 import { RegisterPage } from "../pages/RegisterPage";
 import { RentalsPage } from "../pages/RentalsPage";
+import { RentPage } from "../pages/RentPage";
 
 export const Routing = () => {
   return (
@@ -14,6 +15,7 @@ export const Routing = () => {
         <Route exact={true} path="/register" component={RegisterPage} />
         <Route exact={true} path="/rentals" component={RentalsPage} />
         <Route exact={true} path="/catalog" component={CatalogPage} />
+        <Route exact={true} path="/rent/:carId" component={RentPage} />
       </Switch>
     </BrowserRouter>
   );
