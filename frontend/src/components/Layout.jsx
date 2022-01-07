@@ -23,13 +23,15 @@ export const LayoutFull = (props) => {
   return (
     <div
       style={{
-        height: "120vh",
+        minHeight: "100%",
         backgroundImage: `url(
           "${background}"
         )`,
         backgroundSize: "100vw",
-        backgroundAttachment: "fixed",
         backgroundRepeat: "revert",
+        backgroundAttachment: "fixed",
+        backgroundPosition: "center",
+        backgroundSize: "cover",
         border: "0.1px solid black",
       }}>
       {props.children}
