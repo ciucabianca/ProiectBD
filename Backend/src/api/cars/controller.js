@@ -2,12 +2,17 @@ import { query } from "../../app.js";
 import { findRentals } from "../rentals/controller.js";
 
 const queryGetCars = (filter) => {
+  console.log("filter", filter);
   let query = `SELECT * FROM \`cars\` JOIN \`car_models\` ON cars.ModelId=car_models.ModelId`;
   let where = ` WHERE`;
   let usedWhere = false;
   if (filter.locationId && filter.locationId.length > 0) {
     usedWhere = true;
     where += ` LocationId='${filter.locationId}'`;
+  }
+  if (filter.carId) {
+    usedWhere = true;
+    where += ` CarId='${filter.carId}'`;
   }
 
   if (usedWhere) {
