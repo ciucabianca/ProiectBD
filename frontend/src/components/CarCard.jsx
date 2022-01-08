@@ -2,7 +2,7 @@ import { ImageCarousel } from "./ImageCarousel";
 import { isAuth } from "../helpers/isAuth";
 import { Link, useHistory } from "react-router-dom";
 
-export const CarCard = ({ carDetails }) => {
+export const CarCard = ({ carDetails, isRenderingOffer = true }) => {
   const history = useHistory();
 
   const handleReservation = () => {
@@ -41,34 +41,38 @@ export const CarCard = ({ carDetails }) => {
           carDetails.Automated ? "Automatic" : "Manual"
         } - ${carDetails.Color}`}</h5>
       </div>
-      <div
-        style={{
-          flex: 1,
-          display: "flex",
-          flexDirection: "row",
-          marginBottom: 10,
-        }}>
+
+      {isRenderingOffer && (
         <div
           style={{
             flex: 1,
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
+            flexDirection: "row",
+            marginBottom: 10,
           }}>
-          {renderActionButton()}
+          <div
+            style={{
+              flex: 1,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}>
+            {renderActionButton()}
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-end",
+              alignItems: "flex-end",
+              flex: 2,
+              marginRight: 10,
+            }}>
+            {renderOffer()}
+          </div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-end",
-            alignItems: "flex-end",
-            flex: 2,
-            marginRight: 10,
-          }}>
-          {renderOffer()}
-        </div>
-      </div>
+      )}
     </div>
   );
 };
