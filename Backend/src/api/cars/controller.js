@@ -3,7 +3,9 @@ import { findRentals } from "../rentals/controller.js";
 
 const queryGetCars = (filter) => {
   console.log("filter", filter);
-  let query = `SELECT * FROM \`cars\` JOIN \`car_models\` ON cars.ModelId=car_models.ModelId`;
+  let query = `SELECT * FROM \`cars\`
+              JOIN \`car_models\` ON cars.ModelId=car_models.ModelId
+              JOIN \`locations\` ON cars.LocationId=locations.LocationId`;
   let where = ` WHERE`;
   let usedWhere = false;
   if (filter.locationId && filter.locationId.length > 0) {
