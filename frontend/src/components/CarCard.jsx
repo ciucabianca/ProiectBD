@@ -36,7 +36,7 @@ export const CarCard = ({ carDetails, isRenderingOffer = true }) => {
       style={{ borderRadius: 10, maxWidth: "50em" }}>
       <ImageCarousel images={carDetails.Images} />
       <div style={{ flex: 1, marginTop: 20 }}>
-        <h2>{`${carDetails.Manufacturer} ${carDetails.Type}`}</h2>
+        <h2>{`${carDetails.Manufacturer} ${carDetails.Type} - ${carDetails.LocationName}`}</h2>
         <h5 style={{ marginTop: 15 }}>{`${carDetails.FabricationYear} - ${
           carDetails.Automated ? "Automatic" : "Manual"
         } - ${carDetails.Color}`}</h5>

@@ -50,6 +50,9 @@ export const findRentals = async (filter) => {
 
 export const createRental = async (rental) => {
   rental.rentalId = uuid();
+  rental.startDate = new Date(rental.startDate * 1000).toISOString();
+  rental.endDate = new Date(rental.endDate * 1000).toISOString();
+  console.log("rental", rental);
   const res = await query(queryPostRental(rental));
   return { res };
 };

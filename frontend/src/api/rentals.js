@@ -11,3 +11,15 @@ export const getRentalsByUserId = async (userId) => {
   }
   return [];
 };
+
+export const createRental = async (rental) => {
+  try {
+    const res = await axios.post(`/api/rentals`, rental, {
+      headers: { Authorization: `bearer ${localStorage.authToken}` },
+    });
+    return res.data ?? {};
+  } catch (error) {
+    console.log(error);
+  }
+  return [];
+};
