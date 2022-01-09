@@ -10,11 +10,11 @@ const queryGetCars = (filter) => {
   let usedWhere = false;
   if (filter.locationId && filter.locationId.length > 0) {
     usedWhere = true;
-    where += ` LocationId='${filter.locationId}'`;
+    where += ` cars.LocationId='${filter.locationId}'`;
   }
   if (filter.carId) {
     usedWhere = true;
-    where += ` CarId='${filter.carId}'`;
+    where += ` cars.CarId='${filter.carId}'`;
   }
 
   if (usedWhere) {

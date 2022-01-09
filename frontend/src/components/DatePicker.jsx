@@ -2,10 +2,20 @@ import moment from "moment";
 import { useState } from "react";
 import { DateRangePicker } from "react-dates";
 
-export const DatePicker = ({ onChangeDates }) => {
+export const DatePicker = ({ onChangeDates, rentals = [] }) => {
   const [startDate, setStartDate] = useState(moment());
   const [endDate, setEndDate] = useState(moment());
   const [focusedInput, setFocusedInput] = useState(null);
+
+  const isDateInRentals = (date) => {
+    let isPresent = false;
+    const dateMoment = date.set({ hour: 12, minute: 0, second: 0 }).unix();
+    rentals.forEach(([begin, end]) => {
+      if (dateMoment >= begin && dateMoment <= end) isPresent = true;
+    });
+
+    return isPresent;
+  };
 
   return (
     <DateRangePicker
@@ -26,6 +36,7 @@ export const DatePicker = ({ onChangeDates }) => {
       displayFormat="DD/MM/YYYY"
       numberOfMonths={1}
       readOnly={true}
+      isDayBlocked={isDateInRentals}
     />
   );
 };

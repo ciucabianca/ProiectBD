@@ -9,6 +9,7 @@ import { LoadingOutlined } from "@ant-design/icons/lib/icons";
 import { createRental, getRentals } from "../api/rentals";
 import { getUser } from "../api/users";
 import { toast } from "react-toastify";
+import moment from "moment";
 
 export const RentPage = () => {
   const { carId } = useParams();
@@ -33,8 +34,20 @@ export const RentPage = () => {
     const cars = await getCars(filter);
     setCars(cars);
 
-    const res = await getRentals({ filter: { carId: cars[0].CarId } });
-    console.log("res rentals", res);
+    const rentals = await getRentals({ filter: { carId: cars[0].CarId } });
+    const rentalDates = rentals.map((rental) => {
+      const start = moment
+        .unix(rental.StartDate)
+        .set({ hour: 12, minute: 0, second: 0 })
+        .unix();
+      const end = moment
+        .unix(rental.EndDate)
+        .set({ hour: 12, minute: 0, second: 0 })
+        .unix();
+      return [start, end];
+    });
+    console.log("rental dates", rentalDates);
+    setRentals(rentalDates);
 
     setIsLoadingCars(false);
   };
@@ -100,6 +113,7 @@ export const RentPage = () => {
               setCost(0);
             }
           }}
+          rentals={rentals}
         />
         <div
           style={{
