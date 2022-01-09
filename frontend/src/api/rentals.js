@@ -1,5 +1,15 @@
 import axios from "axios";
 
+export const getRentals = async (filter) => {
+  try {
+    console.log("fi;ter", filter);
+    const res = await axios.get(`/api/rentals`, { params: filter });
+    return res.data ?? [];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getRentalsByUserId = async (userId) => {
   try {
     const res = await axios.get(`/api/rentals/${userId}`, {

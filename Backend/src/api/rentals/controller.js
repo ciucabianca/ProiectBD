@@ -17,6 +17,10 @@ const queryGetRentals = (filter) => {
     usedWhere = true;
     where += ` (NOT (rentals.StartDate > '${endDate}' OR rentals.EndDate < '${startDate}'))`;
   }
+  if (filter.carId) {
+    usedWhere = true;
+    where += ` rentals.CarId='${filter.carId}'`;
+  }
 
   if (usedWhere) {
     query += where;

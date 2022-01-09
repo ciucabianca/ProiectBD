@@ -4,6 +4,14 @@ import { validateAuth } from "../../helpers/validateAuth.js";
 
 export const rentalsRouter = Router();
 
+rentalsRouter.get("/", async (req, res) => {
+  console.log("req", req.query, req.params);
+  const filter = req.query.filter ? JSON.parse(req.query.filter) : {};
+  console.log("filter", filter);
+  const rentals = await findRentals(filter);
+  return res.status(200).json(rentals);
+});
+
 rentalsRouter.get("/:_userId", validateAuth(["user"]), async (req, res) => {
   const rentals = await findRentals({ userId: req.params._userId });
   return res.status(200).json(rentals);

@@ -6,12 +6,14 @@ import { CarCard } from "../components/CarCard";
 import { getCars } from "../api/cars";
 import { useHistory } from "react-router-dom";
 import { LoadingOutlined } from "@ant-design/icons/lib/icons";
-import { createRental } from "../api/rentals";
+import { createRental, getRentals } from "../api/rentals";
 import { getUser } from "../api/users";
+import { toast } from "react-toastify";
 
 export const RentPage = () => {
   const { carId } = useParams();
 
+  const [rentals, setRentals] = useState([]);
   const [cars, setCars] = useState([]);
   const [isLoadingCars, setIsLoadingCars] = useState(false);
   const [startDate, setStartDate] = useState();
@@ -30,6 +32,10 @@ export const RentPage = () => {
     setIsLoadingCars(true);
     const cars = await getCars(filter);
     setCars(cars);
+
+    const res = await getRentals({ filter: { carId: cars[0].CarId } });
+    console.log("res rentals", res);
+
     setIsLoadingCars(false);
   };
 
@@ -58,9 +64,7 @@ export const RentPage = () => {
 
   const handleReservation = async () => {
     const user = await getUser();
-    console.log("user", user);
     const car = cars[0];
-    console.log("car", car, cars[0]);
     const rental = {
       carId: car.CarId,
       userId: user.userId,
@@ -69,8 +73,8 @@ export const RentPage = () => {
       endDate: endDate,
       totalPrice: cost,
     };
-    console.log("rental", rental);
     const res = await createRental(rental);
+    toast.success("Inchiriere cu succes!");
     history.push(`/rentals`);
   };
 
