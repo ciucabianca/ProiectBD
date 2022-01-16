@@ -1,33 +1,68 @@
 import moment from "moment";
+import { useEffect } from "react";
 import { useState } from "react";
+import { DatePicker } from "../components/DatePicker";
+import { deleteRental, getRentals, updateRental } from "../api/rentals";
 
 export const RentalCard = ({ rental, isEditable }) => {
-  console.log(rental);
-
   const [isEditing, setIsEditing] = useState(false);
+  const [rentals, setRentals] = useState([]);
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+  const [isUpdateAvailable, setIsUpdateAvailable] = useState(false);
+
+  useEffect(() => {
+    asyncGetRentals();
+  }, []);
+
+  const asyncGetRentals = async () => {
+    const rentals = await getRentals({ filter: { carId: rental.CarId } });
+    const rentalDates = rentals.map((rental) => {
+      const start = moment
+        .unix(rental.StartDate)
+        .set({ hour: 12, minute: 0, second: 0 })
+        .unix();
+      const end = moment
+        .unix(rental.EndDate)
+        .set({ hour: 12, minute: 0, second: 0 })
+        .unix();
+      return [start, end];
+    });
+
+    setRentals(rentalDates);
+  };
 
   const onEdit = () => {
     setIsEditing(true);
-    console.log("edit");
   };
 
-  const onDelete = () => {
-    console.log("delete");
+  const onDelete = async () => {
+    await deleteRental(rental.RentalId);
   };
 
-  const onSave = () => {
+  const onSave = async () => {
     setIsEditing(false);
-    console.log("save");
+    await updateRental(rental.RentalId, startDate, endDate);
   };
 
   const onCancel = () => {
     setIsEditing(false);
-    console.log("cancel");
   };
 
   const renderDates = () => {
     if (isEditing && isEditable) {
-      return <></>;
+      return (
+        <div className="my-3">
+          <DatePicker
+            onChangeDates={(start, end) => {
+              setStartDate(start);
+              setEndDate(end);
+              setIsUpdateAvailable(start && end);
+            }}
+            rentals={rentals}
+          />
+        </div>
+      );
     } else {
       return (
         <>
@@ -50,7 +85,11 @@ export const RentalCard = ({ rental, isEditable }) => {
     if (isEditing) {
       return (
         <div>
-          <button className="btn btn-success" onClick={onSave}>
+          <button
+            className={`btn btn-success ${
+              isUpdateAvailable === false ? "disabled" : ""
+            }`}
+            onClick={onSave}>
             Salveaza
           </button>
           <button className="btn btn-danger mx-2" onClick={onCancel}>

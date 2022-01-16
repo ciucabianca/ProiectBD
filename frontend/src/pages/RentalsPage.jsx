@@ -30,7 +30,6 @@ export const RentalsPage = () => {
         <LoadingOutlined className="h3 m-3" />
       ) : (
         rentals.map((rental) => {
-          console.log("diferenta", rental.StartDate, timeNowUnix);
           return (
             <RentalCard
               rental={rental}

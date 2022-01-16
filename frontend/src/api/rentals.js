@@ -1,8 +1,8 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const getRentals = async (filter) => {
   try {
-    console.log("fi;ter", filter);
     const res = await axios.get(`/api/rentals`, { params: filter });
     return res.data ?? [];
   } catch (error) {
@@ -32,4 +32,32 @@ export const createRental = async (rental) => {
     console.log(error);
   }
   return [];
+};
+
+export const updateRental = async (rentalId, start, end) => {
+  try {
+    console.log("update rental", rentalId, start, end);
+    const res = await axios.put(
+      `/api/rentals/${rentalId}`,
+      { start, end },
+      {
+        headers: { Authorization: `bearer ${localStorage.authToken}` },
+      }
+    );
+    toast.success("Update Succesful!");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteRental = async (rentalId) => {
+  try {
+    console.log("delete", rentalId);
+    const res = await axios.delete(`/api/rentals/${rentalId}`, {
+      headers: { Authorization: `bearer ${localStorage.authToken}` },
+    });
+    toast.success("Delete Succesful!");
+  } catch (error) {
+    console.log(error);
+  }
 };
