@@ -4,7 +4,8 @@ import { v4 as uuid } from "uuid";
 const queryGetRentals = (filter) => {
   let query = `SELECT * FROM \`rentals\`
               JOIN \`cars\` ON rentals.CarId=cars.CarId
-              JOIN \`car_models\` ON cars.ModelId=car_models.ModelId`;
+              JOIN \`car_models\` ON cars.ModelId=car_models.ModelId
+              JOIN \`locations\` ON cars.LocationId=locations.LocationId`;
   let where = ` WHERE`;
   let usedWhere = false;
   if (filter.userId) {
