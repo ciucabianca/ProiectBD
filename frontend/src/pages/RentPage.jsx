@@ -67,7 +67,7 @@ export const RentPage = () => {
       <div
         style={{ width: 290 }}
         className={`btn p-2 mx-1 ${
-          isRentingAvailable ? "btn-success" : "btn-outline-success disabled"
+          isRentingAvailable ? "btn-success" : "btn-success disabled"
         }`}
         onClick={handleReservation}>
         {cost > 0 ? `Inchiriaza pentru ${cost}$` : "Inchiriaza"}

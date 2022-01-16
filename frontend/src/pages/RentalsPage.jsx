@@ -4,8 +4,11 @@ import { getRentalsByUserId } from "../api/rentals";
 import { getUser } from "../api/users";
 import { Layout } from "../components/Layout";
 import { LoadingOutlined } from "@ant-design/icons/lib/icons";
+import moment from "moment";
 
 export const RentalsPage = () => {
+  const timeNowUnix = moment().unix();
+
   const [rentals, setRentals] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -27,7 +30,13 @@ export const RentalsPage = () => {
         <LoadingOutlined className="h3 m-3" />
       ) : (
         rentals.map((rental) => {
-          return <RentalCard rental={rental} />;
+          console.log("diferenta", rental.StartDate, timeNowUnix);
+          return (
+            <RentalCard
+              rental={rental}
+              isEditable={rental.StartDate > timeNowUnix}
+            />
+          );
         })
       )}
     </Layout>
