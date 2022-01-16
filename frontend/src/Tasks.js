@@ -3,8 +3,10 @@ Cerinte:
 - 2 Insert in tabele diferite - DONE (Users & Rentals)
 - 2 Update-uri
   - Update rental dates
+  - Update user first and last name
 - 2 Delete-uri
   - Delete rental
+  - Delete user account
 - 6 Interogari w Join
   - Rentals:
     - Filter by UserId
@@ -20,5 +22,6 @@ Cerinte:
 Top 3 cele mai inchiriate Modele
 Top 3 cele mai dorite culori
 Modelul de masina cu cel mai mare venit
-select carid from rentals where locationid in ALL(select locationId from location where locationCity == '"")
+select carid from rentals where locationid in ALL
+(select locationId from location where locationCity == '"")
 */

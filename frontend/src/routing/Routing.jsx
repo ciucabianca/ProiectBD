@@ -6,6 +6,7 @@ import { RegisterPage } from "../pages/RegisterPage";
 import { RentalsPage } from "../pages/RentalsPage";
 import { ProfilePage } from "../pages/ProfilePage";
 import { RentPage } from "../pages/RentPage";
+import { StatsPage } from "../pages/StatsPage";
 
 export const Routing = () => {
   return (
@@ -17,6 +18,7 @@ export const Routing = () => {
         <Route exact={true} path="/rentals" component={RentalsPage} />
         <Route exact={true} path="/catalog" component={CatalogPage} />
         <Route exact={true} path="/profile" component={ProfilePage} />
+        <Route exact={true} path="/stats" component={StatsPage} />
         <Route exact={true} path="/rent/:carId" component={RentPage} />
       </Switch>
     </BrowserRouter>
