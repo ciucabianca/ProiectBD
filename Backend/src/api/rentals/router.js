@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { createRental, findRentals } from "./controller.js";
+import {
+  createRental,
+  deleteRental,
+  findRentals,
+  updateRental,
+} from "./controller.js";
 import { validateAuth } from "../../helpers/validateAuth.js";
 
 export const rentalsRouter = Router();
@@ -36,3 +41,27 @@ rentalsRouter.post("/", validateAuth(["user"]), async (req, res) => {
     return res.status(500).send("error while updating values");
   }
 });
+
+rentalsRouter.put("/:_rentalId", validateAuth(["user"]), async (req, res) => {
+  try {
+    const rental = await updateRental(req.params._rentalId, req.body);
+    return res.status(200).json(rental);
+  } catch (err) {
+    console.log("err", err);
+    return res.status(500).send("error while updating values");
+  }
+});
+
+rentalsRouter.delete(
+  "/:_rentalId",
+  validateAuth(["user"]),
+  async (req, res) => {
+    try {
+      await deleteRental(req.params._rentalId);
+      return res.status(204).send("Succesfully deleted!");
+    } catch (err) {
+      console.log("err", err);
+      return res.status(500).send("error while updateing values");
+    }
+  }
+);

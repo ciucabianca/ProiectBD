@@ -40,6 +40,22 @@ const queryPostRental = (rental) => {
   return query;
 };
 
+const queryUpdateRental = (rentalId, start, end) => {
+  const query = `UPDATE \`rentals\`
+                SET rentals.StartDate='${start}', rentals.EndDate='${end}'
+                WHERE rentals.RentalID='${rentalId}'`;
+
+  console.log("Query update rental", query);
+  return query;
+};
+
+const queryDeleteRental = (rentalId) => {
+  const query = `DELETE FROM \`rentals\` WHERE rentals.RentalID='${rentalId}'`;
+
+  console.log("Query delete rental", query);
+  return query;
+};
+
 export const findRentals = async (filter) => {
   const res = await query(queryGetRentals(filter));
   const formated = res.map((rowDataPacket) => {
@@ -60,4 +76,16 @@ export const createRental = async (rental) => {
   console.log("rental", rental);
   const res = await query(queryPostRental(rental));
   return { res };
+};
+
+export const updateRental = async (rentalId, { start, end }) => {
+  const startDate = new Date(start * 1000).toISOString();
+  const endDate = new Date(end * 1000).toISOString();
+  const res = await query(queryUpdateRental(rentalId, startDate, endDate));
+  console.log(rentalId, start, end);
+  return { res };
+};
+
+export const deleteRental = async (rentalId) => {
+  await query(queryDeleteRental(rentalId));
 };

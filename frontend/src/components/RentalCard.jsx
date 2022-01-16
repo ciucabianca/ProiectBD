@@ -17,17 +17,21 @@ export const RentalCard = ({ rental, isEditable }) => {
 
   const asyncGetRentals = async () => {
     const rentals = await getRentals({ filter: { carId: rental.CarId } });
-    const rentalDates = rentals.map((rental) => {
-      const start = moment
-        .unix(rental.StartDate)
-        .set({ hour: 12, minute: 0, second: 0 })
-        .unix();
-      const end = moment
-        .unix(rental.EndDate)
-        .set({ hour: 12, minute: 0, second: 0 })
-        .unix();
-      return [start, end];
-    });
+    const rentalDates = rentals
+      .filter((currentRent) => {
+        return currentRent.RentalId !== rental.RentalId;
+      })
+      .map((rental) => {
+        const start = moment
+          .unix(rental.StartDate)
+          .set({ hour: 12, minute: 0, second: 0 })
+          .unix();
+        const end = moment
+          .unix(rental.EndDate)
+          .set({ hour: 12, minute: 0, second: 0 })
+          .unix();
+        return [start, end];
+      });
 
     setRentals(rentalDates);
   };
@@ -38,11 +42,17 @@ export const RentalCard = ({ rental, isEditable }) => {
 
   const onDelete = async () => {
     await deleteRental(rental.RentalId);
+    setTimeout(() => {
+      window.location.reload(false);
+    }, 1000);
   };
 
   const onSave = async () => {
     setIsEditing(false);
     await updateRental(rental.RentalId, startDate, endDate);
+    setTimeout(() => {
+      window.location.reload(false);
+    }, 1000);
   };
 
   const onCancel = () => {
@@ -118,7 +128,7 @@ export const RentalCard = ({ rental, isEditable }) => {
         <h4 className="card-title">{`${rental.Manufacturer} - ${rental.Model} - ${rental.FabricationYear}`}</h4>
         {renderDates()}
         <p className="card-text">From: {rental.LocationName}</p>
-        <p className="card-text">Fabrication Year: {rental.FabricationYear}</p>
+        <p className="card-text">Total cost: {rental.TotalPrice}</p>
         {renderButtons()}
       </div>
     </div>
