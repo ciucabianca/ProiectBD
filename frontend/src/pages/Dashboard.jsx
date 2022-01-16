@@ -38,6 +38,7 @@ export const Dashboard = (props) => {
           {isAuth()
             ? renderLinkButton("My Rentals", "rentals")
             : renderLinkButton("Register", "register")}
+          {isAuth() && renderLinkButton("Profile", "profile")}
           {isAuth() && renderLogout()}
         </div>
       </div>
