@@ -3,12 +3,47 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { query } from "../../app.js";
 
+const queryGetUserById = (userId) => {
+  const query = `SELECT * FROM \`users\` Where UserId="${userId}"`;
+  console.log("Query get user", query);
+  return query;
+};
+
 const queryGetUserByEmail = (userEmail) => {
-  return `SELECT * FROM \`users\` Where Email="${userEmail}"`;
+  const query = `SELECT * FROM \`users\` Where Email="${userEmail}"`;
+  console.log("Query get user", query);
+  return query;
 };
 
 const queryCreateUser = (user) => {
-  return `INSERT INTO \`users\`(\`UserId\`, \`LastName\`, \`FirstName\`, \`Email\`, \`Password\`, \`Role\`) VALUES ("${user.id}","${user.lastName}","${user.firstName}","${user.email}","${user.password}", "${user.role}")`;
+  const query = `INSERT INTO \`users\`(\`UserId\`, \`LastName\`, \`FirstName\`, \`Email\`, \`Password\`, \`Role\`) VALUES ("${user.id}","${user.lastName}","${user.firstName}","${user.email}","${user.password}", "${user.role}")`;
+  console.log("Query create user", query);
+  return query;
+};
+
+const queryUpdateUser = (userId, firstName, lastName) => {
+  const query = `UPDATE \`users\`
+                SET users.FirstName='${firstName}', users.LastName='${lastName}'
+                WHERE users.UserID='${userId}'`;
+
+  console.log("Query update users", query);
+  return query;
+};
+
+const queryDeleteUser = (userId) => {
+  const query = `DELETE FROM \`users\` WHERE users.UserId='${userId}'`;
+
+  console.log("Query delete user", query);
+  return query;
+};
+
+export const getUserById = async (userId) => {
+  const user = await query(queryGetUserById(userId));
+  if (user.length) {
+    return user[0];
+  } else {
+    return undefined;
+  }
 };
 
 export const create = async (user) => {
@@ -40,6 +75,15 @@ export const login = async (credentials) => {
   } else {
     throw "not found";
   }
+};
+
+export const updateUser = async (userId, { firstName, lastName }) => {
+  const user = await query(queryUpdateUser(userId, firstName, lastName));
+  return { user };
+};
+
+export const deleteUser = async (userId) => {
+  await query(queryDeleteUser(userId));
 };
 
 const jwtSignUser = (user) => {

@@ -1,5 +1,11 @@
 import { Router } from "express";
-import { create, login } from "./controller.js";
+import {
+  create,
+  deleteUser,
+  getUserById,
+  login,
+  updateUser,
+} from "./controller.js";
 import validateParams from "../../middleware/validateParams.js";
 import { check } from "express-validator";
 import { validateAuth } from "../../helpers/validateAuth.js";
@@ -9,6 +15,16 @@ export const usersRouter = Router();
 usersRouter.get("/me", validateAuth(["user"]), async (req, res) => {
   console.log(req.user);
   return res.status(200).json(req.user);
+});
+
+usersRouter.get("/:_userId", validateAuth(["user"]), async (req, res) => {
+  try {
+    const user = await getUserById(req.params._userId);
+    return res.status(200).json(user);
+  } catch (err) {
+    console.log("error", err);
+    return res.status(500).send("Internal Server Error");
+  }
 });
 
 usersRouter.post(
@@ -69,3 +85,23 @@ usersRouter.post(
     }
   }
 );
+
+usersRouter.put("/:_userId", async (req, res) => {
+  try {
+    const user = await updateUser(req.params._userId, req.body);
+    return res.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send("Internal Server Error");
+  }
+});
+
+usersRouter.delete("/:_userId", async (req, res) => {
+  try {
+    await deleteUser(req.params._userId);
+    return res.status(204).send("Succesfully deleted");
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send("Internal Server Error");
+  }
+});
