@@ -45,11 +45,17 @@ GROUP BY rentals.CarId
 ORDER BY SUM(TotalPrice) DESC
 LIMIT 1
 
+SELECT L.LocationName, COUNT(R.RentalId) FROM `rentals` R
+  JOIN `locations` L ON R.LocationId=L.LocationId
+  GROUP BY L.LocationName
+  HAVING COUNT(*) = (SELECT MAX(X.Rentals) AS RentalsMax
+  FROM (SELECT rentals.LocationId, COUNT(rentals.RentalId) AS Rentals FROM `rentals`
+  GROUP BY rentals.LocationId)X)
 
-SELECT locations.Name, SUM(TotalPrice) FROM `rentals`
-JOIN `cars` ON cars.CarId=rentals.CarId
-JOIN (SELECT car_models.Manufacturer, car_models.Model, car_models.ModelId FROM  `car_models`) AS `car_models` ON cars.ModelId=car_models.ModelId
-GROUP BY rentals.CarId
-ORDER BY SUM(TotalPrice) DESC
-LIMIT 1
+SELECT L.LocationName, SUM(R.TotalPrice) FROM `rentals` R
+  JOIN `locations` L ON R.LocationId=L.LocationId
+  GROUP BY L.LocationName
+  HAVING SUM(R.TotalPrice) = (SELECT MAX(X.Rentals) AS RentalsMax
+  FROM (SELECT rentals.LocationId, SUM(rentals.TotalPrice) AS Rentals FROM `rentals`
+  GROUP BY rentals.LocationId)X)
 */

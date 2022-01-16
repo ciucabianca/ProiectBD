@@ -32,7 +32,6 @@ export const Dashboard = (props) => {
       </h1>
       <div className="d-flex justify-content-center mt-3">
         <div className="d-flex flex-column">
-          {renderLinkButton("Statistics", "stats")}
           {isAuth()
             ? renderLinkButton("See Available Cars", "catalog")
             : renderLinkButton("Login", "login")}
@@ -40,6 +39,7 @@ export const Dashboard = (props) => {
             ? renderLinkButton("My Rentals", "rentals")
             : renderLinkButton("Register", "register")}
           {isAuth() && renderLinkButton("Profile", "profile")}
+          {renderLinkButton("Statistics", "stats")}
           {isAuth() && renderLogout()}
         </div>
       </div>

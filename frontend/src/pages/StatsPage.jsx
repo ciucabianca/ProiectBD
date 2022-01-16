@@ -21,51 +21,60 @@ export const StatsPage = () => {
 
   return (
     <Layout>
-      <h1> Statistics Page</h1>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <h1 className="text-center pb-4"> STATISTICS </h1>
+      <div
+        style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
         <div
           className="p-3 m-2"
           style={{
             borderRadius: 8,
-            backgroundColor: "grey",
+            backgroundColor: "#b3e2ee",
             height: 180,
-            width: 300,
+            width: 340,
           }}>
-          <h3>Best selling Model (numbers):</h3>
-          <h3>{modelNumber}</h3>
+          <h4 className="text-center pb-4">
+            Best selling Model By Number Of Rentals::
+          </h4>
+          <h3 className="text-center pb-4">{modelNumber}</h3>
         </div>
         <div
           className="p-3 m-2"
           style={{
             borderRadius: 8,
-            backgroundColor: "grey",
+            backgroundColor: "#b3e2ee",
             height: 180,
-            width: 300,
+            width: 340,
           }}>
-          <h3>Best selling Model ($):</h3>
-          <h3>{modelSales}</h3>
+          <h4 className="text-center pb-4">
+            Best selling Model By Revenue ($):
+          </h4>
+          <h3 className="text-center pb-4">{modelSales}</h3>
         </div>
         <div
           className="p-3 m-2"
           style={{
             borderRadius: 8,
-            backgroundColor: "grey",
+            backgroundColor: "#b3e2ee",
             height: 180,
-            width: 300,
+            width: 340,
           }}>
-          <h3>Best selling Location (numbers):</h3>
-          <h3>{locationNumber}</h3>
+          <h4 className="text-center pb-4">
+            Best selling Location By Number Of Rentals:
+          </h4>
+          <h3 className="text-center pb-4">{locationNumber}</h3>
         </div>
         <div
           className="p-3 m-2"
           style={{
             borderRadius: 8,
-            backgroundColor: "grey",
+            backgroundColor: "#b3e2ee",
             height: 180,
-            width: 300,
+            width: 340,
           }}>
-          <h3>Best selling Location ($):</h3>
-          <h3>{locationSales}</h3>
+          <h4 className="text-center pb-4">
+            Best selling Location By Revenue ($):
+          </h4>
+          <h3 className="text-center pb-4">{locationSales}</h3>
         </div>
       </div>
     </Layout>

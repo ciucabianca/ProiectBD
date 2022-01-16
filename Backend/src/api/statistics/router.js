@@ -28,14 +28,24 @@ const queryModelSum = () => {
 };
 
 const queryLocationNum = () => {
-  const query = ``;
+  const query = `SELECT L.LocationName FROM \`rentals\` R
+  JOIN \`locations\` L ON R.LocationId=L.LocationId
+  GROUP BY L.LocationName
+  HAVING COUNT(*) = (SELECT MAX(X.Rentals) AS RentalsMax
+  FROM (SELECT rentals.LocationId, COUNT(rentals.RentalId) AS Rentals FROM \`rentals\`
+  GROUP BY rentals.LocationId)X)`;
 
   console.log("Query stats location numbers", query);
   return query;
 };
 
 const queryLocationSum = () => {
-  const query = ``;
+  const query = `SELECT L.LocationName FROM \`rentals\` R
+  JOIN \`locations\` L ON R.LocationId=L.LocationId
+  GROUP BY L.LocationName
+  HAVING SUM(R.TotalPrice) = (SELECT MAX(X.Rentals) AS RentalsMax
+  FROM (SELECT rentals.LocationId, SUM(rentals.TotalPrice) AS Rentals FROM \`rentals\`
+  GROUP BY rentals.LocationId)X)`;
 
   console.log("Query stats location sum", query);
   return query;

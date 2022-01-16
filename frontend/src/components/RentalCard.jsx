@@ -100,10 +100,10 @@ export const RentalCard = ({ rental, isEditable }) => {
               isUpdateAvailable === false ? "disabled" : ""
             }`}
             onClick={onSave}>
-            Salveaza
+            Save
           </button>
           <button className="btn btn-danger mx-2" onClick={onCancel}>
-            Anuleaza
+            Cancel
           </button>
         </div>
       );
@@ -111,10 +111,10 @@ export const RentalCard = ({ rental, isEditable }) => {
       return (
         <div>
           <button className="btn btn-primary" onClick={onEdit}>
-            Editeaza
+            Edit
           </button>
           <button className="btn btn-danger mx-2" onClick={onDelete}>
-            Sterge
+            Delete
           </button>
         </div>
       );
@@ -128,7 +128,7 @@ export const RentalCard = ({ rental, isEditable }) => {
         <h4 className="card-title">{`${rental.Manufacturer} - ${rental.Model} - ${rental.FabricationYear}`}</h4>
         {renderDates()}
         <p className="card-text">From: {rental.LocationName}</p>
-        <p className="card-text">Total cost: {rental.TotalPrice}</p>
+        <p className="card-text">Total Cost: {rental.TotalPrice}</p>
         {renderButtons()}
       </div>
     </div>
