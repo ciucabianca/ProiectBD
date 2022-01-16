@@ -22,6 +22,34 @@ Cerinte:
 Top 3 cele mai inchiriate Modele
 Top 3 cele mai dorite culori
 Modelul de masina cu cel mai mare venit
+
 select carid from rentals where locationid in ALL
 (select locationId from location where locationCity == '"")
+
+
+SELECT Manufacturer, Model FROM `car_models`
+WHERE ModelId in
+(SELECT ModelId FROM `car_models`)
+
+SELECT car_models.Manufacturer, car_models.Model, SUM(TotalPrice) FROM `rentals`
+JOIN `cars` ON cars.CarId=rentals.CarId
+JOIN `car_models` ON cars.ModelId=car_models.ModelId
+GROUP BY rentals.CarId
+ORDER BY SUM(TotalPrice) DESC
+LIMIT 1
+
+SELECT car_models.Manufacturer, car_models.Model, SUM(TotalPrice) FROM `rentals`
+JOIN `cars` ON cars.CarId=rentals.CarId
+JOIN (SELECT car_models.Manufacturer, car_models.Model, car_models.ModelId FROM  `car_models`) AS `car_models` ON cars.ModelId=car_models.ModelId
+GROUP BY rentals.CarId
+ORDER BY SUM(TotalPrice) DESC
+LIMIT 1
+
+
+SELECT locations.Name, SUM(TotalPrice) FROM `rentals`
+JOIN `cars` ON cars.CarId=rentals.CarId
+JOIN (SELECT car_models.Manufacturer, car_models.Model, car_models.ModelId FROM  `car_models`) AS `car_models` ON cars.ModelId=car_models.ModelId
+GROUP BY rentals.CarId
+ORDER BY SUM(TotalPrice) DESC
+LIMIT 1
 */
