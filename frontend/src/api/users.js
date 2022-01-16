@@ -63,11 +63,11 @@ export const getUserById = async (userId) => {
   return undefined;
 };
 
-export const updateUser = async (userId, { firstName, lastName }) => {
+export const updateUser = async (userId, { firstName, lastName, email }) => {
   try {
     const res = await axios.put(
       `/api/users/${userId}`,
-      { firstName, lastName },
+      { firstName, lastName, email },
       {
         headers: { Authorization: `bearer ${localStorage.authToken}` },
       }

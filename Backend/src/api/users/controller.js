@@ -21,9 +21,9 @@ const queryCreateUser = (user) => {
   return query;
 };
 
-const queryUpdateUser = (userId, firstName, lastName) => {
+const queryUpdateUser = (userId, firstName, lastName, email) => {
   const query = `UPDATE \`users\`
-                SET users.FirstName='${firstName}', users.LastName='${lastName}'
+                SET users.FirstName='${firstName}', users.LastName='${lastName}', users.Email='${email}'
                 WHERE users.UserID='${userId}'`;
 
   console.log("Query update users", query);
@@ -77,8 +77,8 @@ export const login = async (credentials) => {
   }
 };
 
-export const updateUser = async (userId, { firstName, lastName }) => {
-  const user = await query(queryUpdateUser(userId, firstName, lastName));
+export const updateUser = async (userId, { firstName, lastName, email }) => {
+  const user = await query(queryUpdateUser(userId, firstName, lastName, email));
   return { user };
 };
 

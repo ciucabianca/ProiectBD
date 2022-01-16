@@ -9,6 +9,7 @@ export const ProfilePage = () => {
   const [isEditing, setIsEditing] = useState();
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
+  const [email, setEmail] = useState();
 
   const history = useHistory();
 
@@ -24,8 +25,9 @@ export const ProfilePage = () => {
   };
 
   const onEdit = () => {
-    setFirstName(user.firstName);
+    setFirstName(user.FirstName);
     setLastName(user.LastName);
+    setEmail(user.Email);
     setIsEditing(true);
   };
 
@@ -40,7 +42,7 @@ export const ProfilePage = () => {
 
   const onSave = async (e) => {
     setIsEditing(false);
-    await updateUser(user.UserId, { firstName, lastName });
+    await updateUser(user.UserId, { firstName, lastName, email });
     setTimeout(() => {
       window.location.reload(false);
     }, 1000);
@@ -55,10 +57,10 @@ export const ProfilePage = () => {
       return (
         <div>
           <button className={`btn btn-success`} onClick={onSave}>
-            Salveaza
+            Save
           </button>
           <button className="btn btn-danger mx-2" onClick={onCancel}>
-            Anuleaza
+            Cancel
           </button>
         </div>
       );
@@ -76,7 +78,7 @@ export const ProfilePage = () => {
     }
   };
 
-  const renderNames = () => {
+  const renderFields = () => {
     if (isEditing) {
       return (
         <>
@@ -106,6 +108,19 @@ export const ProfilePage = () => {
               }}
             />
           </div>
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <span className="input-group-text">Email:</span>
+            </div>
+            <input
+              className="for-control"
+              type="text"
+              placeholder={user?.Email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+          </div>
         </>
       );
     } else {
@@ -113,6 +128,7 @@ export const ProfilePage = () => {
         <>
           <h3>{`First Name: ${user?.FirstName}`}</h3>
           <h3>{`Last Name: ${user?.LastName}`}</h3>
+          <h3>{`Email: ${user?.Email}`}</h3>
         </>
       );
     }
@@ -121,7 +137,7 @@ export const ProfilePage = () => {
   return (
     <Layout>
       <h1 className="text-center">Profile</h1>
-      {renderNames()}
+      {renderFields()}
       <div className="my-2">{renderButtons()}</div>
     </Layout>
   );
