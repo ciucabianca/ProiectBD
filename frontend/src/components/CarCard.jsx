@@ -12,11 +12,11 @@ export const CarCard = ({ carDetails, isRenderingOffer = true }) => {
   const renderActionButton = () => {
     return isAuth() ? (
       <div className="btn btn-outline-success p-2" onClick={handleReservation}>
-        Rezerva Acum!
+        Rent Now!
       </div>
     ) : (
       <Link className="btn btn-outline-success p-2" to="/login">
-        Reserva Acum!
+        Rent Now!
       </Link>
     );
   };
@@ -24,8 +24,7 @@ export const CarCard = ({ carDetails, isRenderingOffer = true }) => {
   const renderOffer = () => {
     return (
       <>
-        <h4>{`${carDetails.PricePerDay} RON / Zi`}</h4>
-        <p>{`In limita a 300 km / Zi`}</p>
+        <h4>{`${carDetails.PricePerDay} RON / Day`}</h4>
       </>
     );
   };

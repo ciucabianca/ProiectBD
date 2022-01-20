@@ -28,7 +28,7 @@ export const LocationPicker = ({ onLocationChange }) => {
       }}
       style={{ height: 48, minWidth: 120 }}>
       <option value="" disabled selected>
-        Alege locatia
+        Pick the location
       </option>
       <option value="">Toate locatiile</option>
       {renderLocationOptions()}

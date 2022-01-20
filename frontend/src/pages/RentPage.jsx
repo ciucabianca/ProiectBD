@@ -70,7 +70,7 @@ export const RentPage = () => {
           isRentingAvailable ? "btn-success" : "btn-success disabled"
         }`}
         onClick={handleReservation}>
-        {cost > 0 ? `Inchiriaza pentru ${cost}$` : "Inchiriaza"}
+        {cost > 0 ? `Rent for ${cost}$` : "Rent"}
       </div>
     );
   };
@@ -100,7 +100,6 @@ export const RentPage = () => {
           alignItems: "center",
           marginBottom: 20,
         }}>
-        <h1 className="mb-4">{`Alege perioada`}</h1>
         <DatePicker
           onChangeDates={(start, end) => {
             setStartDate(start);
